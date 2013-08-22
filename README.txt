@@ -36,7 +36,7 @@ will also need to install the ``ssl`` distribution
 from the Python Package Index to use code like that shown above.
 
 Brandon Craig Rhodes is merely the packager of this distribution;
-the actual code inside comes verbatim from Python 3.2.
+the actual code inside comes verbatim from Python 3.4a1.
 
 .. _RFC2818: http://tools.ietf.org/html/rfc2818.html
 
