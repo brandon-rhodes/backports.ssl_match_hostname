@@ -2,7 +2,7 @@
 
 import re
 
-__version__ = '3.4a1.post1'
+__version__ = '3.4.0.1'
 
 class CertificateError(ValueError):
     pass
