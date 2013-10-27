@@ -8,7 +8,7 @@ by the server to which you are connecting,
 and verify that it matches to hostname
 that you are trying to reach.
 
-But the matching logic, defined in `RFC2818`_,
+But the matching logic, defined in `RFC6125`_,
 can be a bit tricky to implement on your own.
 So the ``ssl`` package in the Standard Library of Python 3.2
 and greater now includes a ``match_hostname()`` function
