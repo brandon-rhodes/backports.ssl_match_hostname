@@ -15,6 +15,7 @@ setup(
     author='Brandon Craig Rhodes',
     author_email='brandon@rhodesmill.org',
     maintainer='Toshio Kuratomi',
+    maintainer_email='toshio@fedoraproject.org',
     url='http://bitbucket.org/brandon/backports.ssl_match_hostname',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
