@@ -30,5 +30,6 @@ setup(
         'Topic :: Security :: Cryptography',
         ],
     packages=find_packages('.'),
+    namespace_packages=['backports'],
     include_package_data=True,
     )
