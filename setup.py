@@ -12,7 +12,7 @@ setup(
     version='3.4.0.2',
     description='The ssl.match_hostname() function from Python 3.4',
     long_description=long_description,
-    author='Brandon Craig Rhodes',
+    author='Brandon Rhodes',
     author_email='brandon@rhodesmill.org',
     maintainer='Toshio Kuratomi',
     maintainer_email='toshio@fedoraproject.org',
