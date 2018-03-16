@@ -1,3 +1,4 @@
+
 The ssl.match_hostname() function from Python 3.5
 =================================================
 
@@ -19,14 +20,14 @@ of earlier versions of Python.
 Simply make this distribution a dependency of your package,
 and then use it like this::
 
-from backports.ssl_match_hostname import match_hostname, CertificateError
-[...]
-sslsock = ssl.wrap_socket(sock, ssl_version=ssl.PROTOCOL_SSLv23,
-cert_reqs=ssl.CERT_REQUIRED, ca_certs=...)
-try:
-match_hostname(sslsock.getpeercert(), hostname)
-except CertificateError, ce:
-...
+    from backports.ssl_match_hostname import match_hostname, CertificateError
+    [...]
+    sslsock = ssl.wrap_socket(sock, ssl_version=ssl.PROTOCOL_SSLv23,
+                              cert_reqs=ssl.CERT_REQUIRED, ca_certs=...)
+    try:
+        match_hostname(sslsock.getpeercert(), hostname)
+    except CertificateError, ce:
+        ...
 
 Brandon Craig Rhodes is merely the packager of this distribution;
 the actual code inside comes from Python 3.5 with small changes for
@@ -37,15 +38,15 @@ Requirements
 ------------
 
 * If you want to verify hosts match with certificates via ServerAltname
-IPAddress fields, you need to install the `ipaddress module`_.
-backports.ssl_match_hostname will continue to work without ipaddress but
-will only be able to handle ServerAltName DNSName fields, not IPAddress.
-System packagers (Linux distributions, et al) are encouraged to add
-this as a hard dependency in their packages.
+  IPAddress fields, you need to install the `ipaddress module`_.
+  backports.ssl_match_hostname will continue to work without ipaddress but
+  will only be able to handle ServerAltName DNSName fields, not IPAddress.
+  System packagers (Linux distributions, et al) are encouraged to add
+  this as a hard dependency in their packages.
 
 * If you need to use this on Python versions earlier than 2.6 you will need to
-install the `ssl module`_. From Python 2.6 upwards ``ssl`` is included in
-the Python Standard Library so you do not need to install it separately.
+  install the `ssl module`_.  From Python 2.6 upwards ``ssl`` is included in
+  the Python Standard Library so you do not need to install it separately.
 
 .. _`ipaddress module`:: https://pypi.python.org/pypi/ipaddress
 .. _`ssl module`:: https://pypi.python.org/pypi/ssl
@@ -54,14 +55,15 @@ History
 -------
 
 * This function was introduced in python-3.2
-* It was updated for python-3.4a1 for a CVE
-(backports-ssl_match_hostname-3.4.0.1)
+* It was updated for python-3.4a1 for a CVE 
+  (backports-ssl_match_hostname-3.4.0.1)
 * It was updated from RFC2818 to RFC 6125 compliance in order to fix another
-security flaw for python-3.3.3 and python-3.4a5
-(backports-ssl_match_hostname-3.4.0.2)
+  security flaw for python-3.3.3 and python-3.4a5
+  (backports-ssl_match_hostname-3.4.0.2)
 * It was updated in python-3.5 to handle IPAddresses in ServerAltName fields
-(something that backports.ssl_match_hostname will do if you also install the
-ipaddress library from pypi).
+  (something that backports.ssl_match_hostname will do if you also install the
+  ipaddress library from pypi).
 
 
-.. _RFC2818: http://tools.ietf.org/html/rfc2818.html 
+.. _RFC2818: http://tools.ietf.org/html/rfc2818.html
+

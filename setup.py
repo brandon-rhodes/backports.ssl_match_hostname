@@ -4,7 +4,7 @@ import os
 from distutils.core import setup
 
 long_description = open(os.path.join(
-    os.path.dirname(__file__), 'backports', 'ssl_match_hostname', 'README.txt',
+    os.path.dirname(__file__), 'README.txt'
     )).read()
 
 setup(
