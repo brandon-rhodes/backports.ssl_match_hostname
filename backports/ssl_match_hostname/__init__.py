@@ -15,6 +15,23 @@ except:
 __version__ = '3.7.0.1'
 
 
+# Divergence: Added to deal with ipaddess as bytes on python2
+def _to_text(obj):
+    if isinstance(obj, str) and sys.version_info < (3,):
+        obj = unicode(obj, encoding='ascii', errors='strict')
+    elif sys.version_info >= (3,) and isinstance(obj, bytes):
+        obj = str(obj, encoding='ascii', errors='strict')
+    return obj
+
+
+def _to_bytes(obj):
+    if isinstance(obj, str) and sys.version_info >= (3,):
+        obj = bytes(obj, encoding='ascii', errors='strict')
+    elif sys.version_info < (3,) and isinstance(obj, unicode):
+        obj = obj.encode('ascii', 'strict')
+    return obj
+
+
 def _dnsname_match(dn, hostname):
     """Matching according to RFC 6125, section 6.4.3
 
@@ -75,16 +92,33 @@ def _inet_paton(ipname):
     support.
     """
     # inet_aton() also accepts strings like '1'
-    # Divergence: Be explicit about this being a text string literal
-    if ipname.count(u'.') == 3:
+    # Divergence: We make sure we have native string type for all python versions
+    try:
+        b_ipname = _to_bytes(ipname)
+    except UnicodeError:
+        raise ValueError("%s must be an all-ascii string." % repr(ipname))
+
+    # Set ipname in native string format
+    if sys.version_info < (3,):
+        n_ipname = b_ipname
+    else:
+        n_ipname = ipname
+
+    if n_ipname.count('.') == 3:
         try:
-            return _socket.inet_aton(ipname)
-        except OSError:
+            return _socket.inet_aton(n_ipname)
+        # Divergence: OSError on late python3.  socket.error earlier.
+        # Null bytes generate ValueError on python3(we want to raise
+        # ValueError anyway), TypeError # earlier
+        except (OSError, _socket.error, TypeError):
             pass
 
     try:
-        return _socket.inet_pton(_socket.AF_INET6, ipname)
-    except OSError:
+        return _socket.inet_pton(_socket.AF_INET6, n_ipname)
+    # Divergence: OSError on late python3.  socket.error earlier.
+    # Null bytes generate ValueError on python3(we want to raise
+    # ValueError anyway), TypeError # earlier
+    except (OSError, _socket.error, TypeError):
         # Divergence .format() to percent formatting for Python < 2.6
         raise ValueError("%s is neither an IPv4 nor an IP6 "
                          "address." % repr(ipname))
@@ -94,15 +128,6 @@ def _inet_paton(ipname):
 
     # Divergence .format() to percent formatting for Python < 2.6
     raise ValueError("%s is not an IPv4 address." % repr(ipname))
-
-
-# Divergence: Added to deal with ipaddess as bytes on python2
-def _to_text(obj):
-    if isinstance(obj, str) and sys.version_info < (3,):
-        obj = unicode(obj, encoding='ascii', errors='strict')
-    elif sys.version_info >= (3,) and isinstance(obj, bytes):
-        obj = str(obj, encoding='ascii', errors='strict')
-    return obj
 
 
 def _ipaddress_match(ipname, host_ip):
