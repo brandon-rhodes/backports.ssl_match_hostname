@@ -2,10 +2,7 @@
 # Test the support for SSL and sockets
 
 import sys
-from test import support
 import socket
-import os
-import sysconfig
 
 # Divergence: unittest2 so that we have assertRaisesRegexp
 if sys.version_info < (3,):
@@ -210,7 +207,3 @@ class BasicSocketTests(unittest.TestCase):
         if hasattr(socket, 'AF_INET6'):
             for ipaddr in ['::1', '2001:db8:85a3::8a2e:370:7334']:
                 self.assertTrue(ssl._inet_paton(ipaddr))
-
-
-if __name__ == "__main__":
-    test_main()
