@@ -1,5 +1,5 @@
 
-The ssl.match_hostname() function from Python 3.5
+The ssl.match_hostname() function from Python 3.7
 =================================================
 
 The Secure Sockets Layer is only actually *secure*
@@ -30,25 +30,17 @@ and then use it like this::
         ...
 
 Brandon Craig Rhodes is merely the packager of this distribution;
-the actual code inside comes from Python 3.5 with small changes for
+the actual code inside comes from Python 3.7 with small changes for
 portability.
 
 
 Requirements
 ------------
 
-* If you want to verify hosts match with certificates via ServerAltname
-  IPAddress fields, you need to install the `ipaddress module`_.
-  backports.ssl_match_hostname will continue to work without ipaddress but
-  will only be able to handle ServerAltName DNSName fields, not IPAddress.
-  System packagers (Linux distributions, et al) are encouraged to add
-  this as a hard dependency in their packages.
-
 * If you need to use this on Python versions earlier than 2.6 you will need to
   install the `ssl module`_.  From Python 2.6 upwards ``ssl`` is included in
   the Python Standard Library so you do not need to install it separately.
 
-.. _`ipaddress module`:: https://pypi.python.org/pypi/ipaddress
 .. _`ssl module`:: https://pypi.python.org/pypi/ssl
 
 History
@@ -63,7 +55,9 @@ History
 * It was updated in python-3.5 to handle IPAddresses in ServerAltName fields
   (something that backports.ssl_match_hostname will do if you also install the
   ipaddress library from pypi).
+* It was updated in python-3.7 to handle IPAddresses without the ipaddress library and dropped
+  support for partial wildcards
 
+.. _`ipaddress module`:: https://pypi.python.org/pypi/ipaddress
 
 .. _RFC2818: http://tools.ietf.org/html/rfc2818.html
-
